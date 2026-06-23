@@ -1,186 +1,158 @@
 /* ─── Reset ส่วนกลาง ─────────────────────────────────────────── */
-/* เคลียร์ขอบและระยะเยื้องที่เบราว์เซอร์ให้มาตอนแรกออกให้หมด เพื่อให้จัดหน้าจอเองได้แม่นยำ */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
-    /* ให้ความกว้างกับความสูงรวม Padding และ Border ไปเลย ไม่บวมออกมา */
     margin: 0;
     padding: 0;
 }
 
-/* ─── ตัวแปรสารพัดสี (Design Tokens) ─────────────────── */
-/* เก็บค่าสีที่ใช้บ่อยๆ ไว้ในนี้ เวลาอยากเปลี่ยนธีมเว็บ จะได้แก้ที่เดียวจบ ไม่ต้องไล่แก้ทั้งไฟล์ */
+/* ─── ตัวแปรสารพัดสี (Design Tokens) สไตล์ Deep Oceanic 🌌 ─── */
 :root {
-    --primary: #06B6D4;
-    /* สีฟ้าหลักของเว็บ */
-    --primary-dark: #0891B2;
-    /* สีฟ้ารูปแบบเข้ม เอาไว้ใช้ตอนเมาส์ชี้ (Hover) */
-    --secondary: #8B5CF6;
-    /* สีม่วง เอาไว้สลับสีสกิลหลังบ้าน */
-    --dark: #0F172A;
-    /* สีเกือบดำ เอาไว้ใช้กับตัวหนังสือหลักและพื้นหลังเข้ม */
-    --muted: #64748B;
-    /* สีเทา สำหรับข้อความย่อยๆ */
-    --border: #E2E8F0;
-    /* สีเส้นขอบเทาอ่อน */
-    --bg: #F8FAFC;
-    /* สีพื้นหลังเว็บหลัก */
-    --bg-alt: #EFF6FF;
-    /* สีพื้นหลังแบบสลับ (ฟ้าอ่อนมาก) */
+    --primary: #10B981;
+    /* สีเขียวนีออน Emerald มอบลุคโปรแกรมเมอร์รุ่นใหม่ */
+    --primary-dark: #059669;
+    /* สีเขียวเข้มตอนเมาส์ชี้ Hover */
+    --secondary: #6366F1;
+    /* สีม่วงคราม Indigo เอาไว้ไฮไลต์วิชาเสรี */
+    --dark: #0B132B;
+    /* สีน้ำเงินมิดไนท์เกือบดำดูลึกลับสะดุดตา */
+    --dark-card: #1C2541;
+    /* สีพื้นหลังการ์ดเพื่อให้แยกชิ้นส่วนตัดกับพื้นหลังเว็บ */
+    --muted: #94A3B8;
+    /* สีเทาสว่างสำหรับตัวอักษรรองอ่านง่าย */
+    --border: #334155;
+    /* สีขอบเน้นความดาร์กคมชัด */
+    --bg: #0B132B;
+    /* พื้นหลังหลักธีมมืด */
+    --bg-alt: #111E42;
+    /* พื้นหลังสลับสำหรับบาง Section */
     --white: #FFFFFF;
-    /* สีขาว */
-    --radius: 12px;
-    /* ความโค้งของมุมกล่อง/ปุ่มต่างๆ บนเว็บ */
-    --shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
-    /* เงาจางๆ ช่วยให้กล่องดูมีมิติ */
-    --transition: all 0.3s ease;
-    /* ตั้งค่าแอนิเมชันตอนขยับหรือเปลี่ยนสี ให้มันสมูทภายในเวลา 0.3 วินาที */
+    --radius: 16px;
+    /* เพิ่มความโค้งมนทันสมัยสไตล์ UI ยุคใหม่ */
+    --shadow: 0 10px 30px -10px rgba(2, 4, 12, 0.5);
+    --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ─── สไตล์พื้นฐานของทั้งหน้าเว็บ ─────────────────────────────────── */
 html {
     scroll-behavior: smooth;
-    /* สั่งให้ตอนกดเมนูด้านบน หน้าเว็บมันค่อยๆ เลื่อนสไลด์ลงมาแบบนุ่มนวล */
 }
 
 body {
     font-family: 'Inter', 'Sarabun', sans-serif;
-    /* เรียกใช้ฟอนต์ Inter ก่อน ถ้าไม่มีหรือเป็นไทยให้ใช้ Sarabun */
     background-color: var(--bg);
-    color: var(--dark);
+    color: #F1F5F9; /* สลับฟอนต์หลักให้เป็นสีสว่างเพื่ออ่านง่ายบนพื้นดำ */
     line-height: 1.7;
-    /* ระยะห่างระหว่างบรรทัด ไม่ให้ตัวหนังสือติดกันเกินไป อ่านง่ายขึ้น */
 }
 
 a {
     text-decoration: none;
-    /* ลบเส้นใต้ลิงก์มาตรฐานออก */
     color: inherit;
-    /* ให้ใช้สีตามตัวหนังสือของกล่องที่มันอยู่ */
 }
 
 img {
     max-width: 100%;
-    /* บังคับให้รูปภาพไม่มีทางกว้างเกินขนาดกล่องที่ใส่มันไว้ */
     display: block;
 }
 
 /* ─── จัดระเบียบหน้าจอทั่วไป (Layout) ────────────────────────────── */
-/* กล่องควบคุมความกว้างตรงกลางหน้าจอ ไม่ให้เนื้อหาขยายแผ่ออกไปกว้างเกินไปในจอคอมใหญ่ๆ */
 .container {
     max-width: 1100px;
     margin: 0 auto;
-    /* จัดให้อยู่กึ่งกลางหน้าจอเสมอ */
     padding: 0 24px;
-    /* ดันระยะเยื้องซ้ายขวาเผื่อตอนดูในมือถือ ข้อมูลจะได้ไม่ติดขอบจอ */
 }
 
-/* ตั้งค่ามาตรฐานให้ทุก Section เว้นระยะห่างด้านบนและล่างให้เท่าๆ กันอย่างเป็นระเบียบ */
 .section {
-    padding: 80px 0;
+    padding: 90px 0;
 }
 
-/* สีพื้นหลังแบบสลับ เอาไว้ใช้กับบาง Section เพื่อไม่ให้เว็บดูน่าเบื่อเกินไป */
 .section--alt {
     background-color: var(--bg-alt);
 }
 
-/* สไตล์หัวข้อหลักของแต่ละ Section */
 .section__title {
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 2.2rem;
+    font-weight: 800;
     text-align: center;
-    margin-bottom: 48px;
-    /* เว้นระยะห่างด้านล่างก่อนเริ่มโชว์เนื้อหา */
-    position: relative;
+    margin-bottom: 54px;
+    letter-spacing: 1px;
 }
 
-/* ขีดเส้นใต้หัวข้อหลัก เพิ่มมิติให้งานดูน่าสนใจตามสไตล์งานแล็บ */
 .section__title::after {
     content: '';
     display: block;
-    width: 60px;
+    width: 50px;
     height: 4px;
     background: var(--primary);
-    margin: 12px auto 0;
-    border-radius: 2px;
+    margin: 16px auto 0;
+    border-radius: 4px;
 }
 
 /* ─── สไตล์ปุ่มกดต่างๆ (Buttons) ───────────────────────────── */
-/* โครงสร้างพื้นฐานของปุ่มทั้งหมดบนเว็บ */
 .btn {
     padding: 14px 32px;
     border-radius: var(--radius);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
     cursor: pointer;
     transition: var(--transition);
     display: inline-block;
 }
 
-/* ปุ่มสีฟ้าแบบทึบเด่น ดึงฟังก์ชันลอยตัวและเงาตามดีไซน์หลัก */
 .btn--primary {
     background-color: var(--primary);
-    color: var(--dark);
+    color: #0B132B; /* ตัวอักษรสีเข้มบนปุ่มสว่าง */
 }
 
 .btn--primary:hover {
     background-color: var(--primary-dark);
-    /* ตอนเอาเมาส์ชี้ ให้ปุ่มเข้มขึ้นหน่อย */
-    transform: translateY(-3px);
-    /* ปุ่มลอยขึ้นมาจางๆ */
-    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4);
-    /* เพิ่มเงาสีฟ้าสะท้อนใต้ปุ่ม */
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(16, 185, 129, 0.3);
 }
 
-/* ปุ่มแบบโปร่งแสง มีแค่เส้นขอบ */
 .btn--outline {
-    border: 2px solid var(--white);
-    color: var(--white);
+    border: 2px solid #334155;
+    color: #F1F5F9;
+    background-color: rgba(255, 255, 255, 0.02);
 }
 
 .btn--outline:hover {
-    background-color: var(--white);
-    color: var(--dark);
-    /* ตอนเมาส์ชี้ ให้ปุ่มกลายเป็นสีขาวทึบแล้วตัวหนังสือสีเข้ม */
-    transform: translateY(-3px);
-    /* ปุ่มลอยขึ้นตอนชี้เหมือนปุ่มหลัก */
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-4px);
+    background-color: rgba(16, 185, 129, 0.05);
 }
 
 /* ─── เมนูด้านบนสุด (Navbar) ────────────────────────────────── */
 .navbar {
     position: sticky;
-    /* เปลี่ยนเป็นแบบเหนียวติดขอบด้านบนตอนสไลด์หน้าจอ */
     top: 0;
     z-index: 100;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* แยกโลโก้ไว้ซ้ายสุด และเมนูลิงก์ไว้ขวาสุด */
-    padding: 16px 32px;
-    background-color: var(--dark);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-    /* เพิ่มเงาเข้มใต้บาร์เวลากดเลื่อน */
+    padding: 20px 40px;
+    background-color: rgba(11, 19, 43, 0.85); /* ทำกระจกฝ้าโปร่งแสงดูไฮเอนด์ */
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
 }
 
 .nav-brand {
     font-size: 1.4rem;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--primary);
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     gap: 32px;
-    /* เว้นระยะห่างระหว่างแต่ละเมนู */
 }
 
 .nav-links a {
-    color: #CBD5E1;
-    /* สีเมนูตอนปกติสีเทาสว่าง */
+    color: var(--muted);
     font-weight: 500;
     font-size: 0.95rem;
     transition: var(--transition);
@@ -188,329 +160,255 @@ img {
 
 .nav-links a:hover {
     color: var(--primary);
-    /* พอเมาส์ชี้ปุ๊บ เปลี่ยนเป็นสีฟ้าหลักทันที */
 }
 
 /* ─── หน้าแรก (Hero) ───────────────────────────────────────── */
 .hero {
     position: relative;
-    /* จำเป็นสำหรับให้กล่อง overlay อ้างอิงขนาด */
     height: 100vh;
-    /* บังคับให้ความสูงเต็มจอพอดีกับหน้าจอของผู้ใช้งาน */
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url('images/hero-bg.jpg');
-    /* ลิงก์ดึงภาพพื้นหลัง */
+    background-image: url('images/hero-bg.jpg'); /* ดึงภาพจริงตามสั่ง */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    /* สไตล์ Parallax เลื่อนหน้าจอแล้วรูปอยู่กับที่ */
     text-align: center;
 }
 
-/* แผ่นสีโปร่งแสงไล่เฉด เอาไว้บังพื้นหลัง ช่วยให้ตัวหนังสือเด่นและอ่านง่าย */
 .hero__overlay {
     position: absolute;
     inset: 0;
-    /* แผ่เต็มพื้นที่ทั้ง 4 ด้าน (Top, Right, Bottom, Left = 0) */
-    background: linear-gradient(135deg,
-            rgba(15, 23, 42, 0.80) 0%,
-            rgba(6, 182, 212, 0.30) 100%);
+    background: linear-gradient(180deg, 
+        rgba(11, 19, 43, 0.6) 0%, 
+        rgba(11, 19, 43, 0.95) 100%);
 }
 
-/* Content อยู่เหนือ overlay */
 .hero__content {
     position: relative;
     z-index: 1;
-    /* ดันตัวหนังสือให้ลอยขึ้นมาอยู่เหนือกองสี Overlay */
-    color: var(--white);
-    max-width: 700px;
+    max-width: 800px;
     padding: 24px;
 }
 
 .hero__greeting {
     font-size: 1.2rem;
     color: var(--primary);
-    /* ข้อความทักทายสีฟ้าเด่นๆ */
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
 .hero__name {
-    font-size: clamp(2rem, 6vw, 4rem);
-    /* ปรับขนาดฟอนต์ออโต้ ยืดหยุ่นตามความกว้างหน้าจอ */
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
     font-weight: 800;
-    margin-bottom: 16px;
-    line-height: 1.1;
+    margin-bottom: 20px;
+    color: var(--white);
+    letter-spacing: -1px;
 }
 
 .hero__role {
-    font-size: 1.2rem;
-    color: #CBD5E1;
-    margin-bottom: 40px;
+    font-size: 1.3rem;
+    color: var(--muted);
+    margin-bottom: 44px;
 }
 
 .hero__actions {
     display: flex;
-    gap: 16px;
+    gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
-    /* ปุ่มล้นหน้าจอให้ร่วงลงมาอัตโนมัติ */
 }
 
 /* ─── แนะนำตัว (About) ───────────────────────────────────────── */
 .about__grid {
     display: flex;
-    gap: 48px;
+    gap: 60px;
     align-items: center;
 }
 
-/* กล่องจำลองสำหรับทำเป็นรูปวงกลมไล่เฉดสี */
-.avatar-placeholder {
-    width: 180px;
-    height: 180px;
+/* ปรับแสดงผลรูปภาพจริง ไม่ใช้กล่องสัญลักษณ์จำลองแล้ว */
+.avatar-real {
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    /* สั่งตัดขอบให้เป็นวงกลมมนเป๊ะ */
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    /* ไล่สีฟ้าไปม่วงสวยๆ */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    font-weight: 700;
-    color: white;
+    object-fit: cover; /* บังคับสัดส่วนหน้าเรียวสวย ไม่บี้แบน */
+    border: 4px solid var(--primary);
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
     flex-shrink: 0;
-    /* สั่งห้ามรูปหดขนาดเล็กลงเวลาเปิดในพื้นที่จอแคบๆ */
 }
 
 .about__text h3 {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    color: var(--white);
 }
 
 .about__text p {
     color: var(--muted);
-    margin-bottom: 10px;
+    margin-bottom: 14px;
+    font-size: 1.05rem;
 }
 
 /* ─── วิชาที่เรียน (Courses) ─────────────────────────────────────── */
 .course__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    /* สั่งแบ่งแถวการ์ดอัตโนมัติ ยืดหดตามความกว้างจอ */
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 24px;
 }
 
 .course-card {
-    background: var(--white);
+    background: var(--dark-card);
     border: 1px solid var(--border);
-    border-top: 4px solid var(--primary);
-    /* ทาสีฟ้าเน้นๆ หนา 4px ไว้ที่ขอบด้านบนของการ์ดวิชา */
+    border-left: 4px solid var(--primary); /* เปลี่ยนเป็นขีดด้านซ้ายให้ดูเท่ฉีกแนว */
     border-radius: var(--radius);
-    padding: 24px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 170px;
     transition: var(--transition);
 }
 
-/* แอนิเมชันเวลาร่อนเมาส์ผ่านการ์ดวิชา ให้ลอยตัวขึ้นมานิดๆ */
 .course-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-6px) scale(1.02);
     box-shadow: var(--shadow);
+    border-color: rgba(16, 185, 129, 0.4);
 }
 
+/* ซ่อมคลาสผิดหลักไวยากรณ์เดิม */
 .course-card__code {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--primary);
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
 }
 
 .course-card__name {
     font-weight: 600;
+    color: #E2E8F0;
+    font-size: 1rem;
 }
 
-/* ─── สไตล์เพิ่มเติมสำหรับส่วนวิชาที่เรียน (Courses) ─────────────────── */
-
-/* บังคับความสูงขั้นต่ำของการ์ด เพื่อให้ทุกกล่องสูงเท่ากันอย่างเป็นระเบียบ แม้ชื่อวิชาจะยาวไม่เท่ากัน */
-.course-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: 160px;
-}
-
-/* สไตล์พิเศษเฉพาะวิชาเลือกเสรี เปลี่ยนขอบบนเป็นสีม่วงเซ็กซี่เพื่อความแตกต่าง */
 .course-card--free {
-    border-top: 4px solid var(--secondary) !important;
+    border-left: 4px solid var(--secondary);
 }
 
-/* ป้ายข้อความขนาดเล็กกำกับคำว่า "เลือกเสรี" */
 .tag-free {
     display: inline-block;
     font-size: 0.75rem;
-    background-color: rgba(139, 92, 246, 0.1);
-    /* สีม่วงจางๆ */
-    color: var(--secondary);
-    padding: 2px 8px;
-    border-radius: 4px;
+    background-color: rgba(99, 102, 241, 0.15);
+    color: #A5B4FC;
+    padding: 3px 10px;
+    border-radius: 6px;
     margin-left: 6px;
     font-weight: 700;
-    vertical-align: middle;
 }
 
 /* ─── ทักษะ (Skills) ────────────────────────────────────────── */
 .skills__group {
-    margin-bottom: 32px;
+    margin-bottom: 40px;
 }
 
 .skills__group h3 {
     font-size: 1.1rem;
-    margin-bottom: 16px;
-    color: var(--muted);
+    margin-bottom: 20px;
+    color: var(--white);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 
 .skills__badges {
     display: flex;
     flex-wrap: wrap;
-    /* สกิลเยอะเกินขนาดหน้าจอ ให้ป้ายร่วงลงมาขึ้นบรรทัดใหม่ */
-    gap: 12px;
-}
-
-/* ─── สไตล์เพิ่มเติมสำหรับส่วนป้ายทักษะ (Skills Badges) ─────────────────── */
-
-.skills__badges {
-    display: flex;
-    flex-wrap: wrap;
-    /* ถ้ารายชื่อสกิลเยอะเกินขอบจอ ให้ป้ายร่วงลงมาขึ้นบรรทัดใหม่เองออโต้ */
     gap: 14px;
-    /* เพิ่มระยะห่างระหว่างป้ายนิดหน่อย ไม่ให้ดูอึดอัด */
-    padding-top: 8px;
 }
 
 .badge {
     padding: 10px 24px;
-    /* ปรับขนาดป้ายให้หนานุ่มน่ากดขึ้นตามมาตรฐานเว็บสมัยใหม่ */
     border-radius: 999px;
-    /* ตัดขอบมนกลมทรงแคปซูลยา */
-    font-size: 0.95rem;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    /* เติมเงาจางๆ ใต้ป้ายให้พอดูมีมิติ */
-    transition: var(--transition);
-}
-
-/* เพิ่ม Effect เวลาผู้ใช้เลื่อนเมาส์ผ่านป้าย ให้ป้ายขยายตัวขึ้นและเปลี่ยนสีเข้มขึ้นนิดนึง */
-.badge--blue:hover {
-    background-color: #2563EB;
-    /* สีกรมท่าตอนเมาส์ชี้ */
-    color: var(--white);
-    transform: translateY(-2px) scale(1.03);
-    /* ลอยขึ้นและขยายตัวเล็กน้อย */
-    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
-}
-
-.badge--purple:hover {
-    background-color: #7C3AED;
-    /* สีม่วงเข้มตอนเมาส์ชี้ */
-    color: var(--white);
-    transform: translateY(-2px) scale(1.03);
-    /* ลอยขึ้นและขยายตัวเล็กน้อย */
-    box-shadow: 0 4px 12px rgba(109, 40, 217, 0.2);
-}
-
-/* สไตล์ป้ายข้อความรูปสกิลทรงแคปซูล (Pill Shape) */
-.badge {
-    padding: 8px 20px;
-    border-radius: 999px;
-    /* ขอบโค้งมนยาวทรงแคปซูลยา */
     font-size: 0.9rem;
     font-weight: 600;
+    border: 1px solid var(--border);
+    background-color: var(--dark-card);
+    color: #E2E8F0;
     transition: var(--transition);
-    cursor: default;
 }
 
-/* สีป้ายกลุ่ม Frontend และแอนิเมชันตอนชี้ */
 .badge--blue {
-    background-color: #DBEAFE;
-    color: #1D4ED8;
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #6EE7B7;
 }
 
 .badge--blue:hover {
-    background-color: #1D4ED8;
-    color: white;
-    transform: scale(1.05);
-    /* ขยายใหญ่ขึ้นเล็กน้อยตอนเมาส์วางชี้ */
+    background-color: var(--primary);
+    color: #0B132B;
+    transform: translateY(-3px);
 }
 
-/* สีป้ายกลุ่ม Backend และแอนิเมชันตอนชี้ */
 .badge--purple {
-    background-color: #EDE9FE;
-    color: #6D28D9;
+    border-color: rgba(99, 102, 241, 0.3);
+    color: #A5B4FC;
 }
 
 .badge--purple:hover {
-    background-color: #6D28D9;
-    color: white;
-    transform: scale(1.05);
-    /* ขยายใหญ่ขึ้นเล็กน้อยตอนเมาส์วางชี้ */
+    background-color: var(--secondary);
+    color: var(--white);
+    transform: translateY(-3px);
 }
 
 /* ─── ผลงาน (Projects) ───────────────────────────────────────── */
 .projects__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    /* แบ่งช่องเก็บการ์ดผลงาน */
-    gap: 28px;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 32px;
 }
 
 .project-card {
-    background: var(--white);
+    background: var(--dark-card);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;
-    /* สั่งให้ขอบที่ทะลักความโค้งของการ์ดถูกตัดซ่อนทิ้งไป */
-    box-shadow: var(--shadow);
     transition: var(--transition);
 }
 
 .project-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
-    /* เพิ่มเงาฟุ้งคมเข้มเวลามือชี้โปรเจกต์ */
+    transform: translateY(-10px);
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 20px 40px rgba(2, 4, 12, 0.7);
 }
 
 .project-card__img {
-    height: 160px;
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    transition: var(--transition);
 }
 
-/* ใช้สี gradient ไล่เฉดสีชั่วคราวทับพื้นหลังการ์ดงาน */
-.project-card__img--1 {
-    background: linear-gradient(135deg, #06B6D4, #8B5CF6);
+.project-card:hover .project-card__img {
+    transform: scale(1.05); /* ดึงเอฟเฟกต์ภาพซูมเข้าเมื่อเอาเมาส์ชี้ */
 }
 
-.project-card__img--2 {
-    background: linear-gradient(135deg, #F59E0B, #EF4444);
-}
-
-.project-card__img--3 {
-    background: linear-gradient(135deg, #10B981, #3B82F6);
-}
+.project-card__img--1 { background-image: url('images/project-profile-card.png'); }
+.project-card__img--2 { background-image: url('images/project-portfolio.png'); }
+.project-card__img--3 { background-image: url('images/project-ecommerce.jpg'); }
 
 .project-card__body {
-    padding: 20px;
+    padding: 24px;
 }
 
 .project-card__body h3 {
-    font-size: 1.1rem;
-    margin-bottom: 8px;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--white);
 }
 
 .project-card__body p {
     color: var(--muted);
-    font-size: 0.9rem;
-    margin-bottom: 12px;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
 }
 
 .project-card__tags {
@@ -520,97 +418,15 @@ img {
 }
 
 .project-card__tags span {
-    background: var(--bg-alt);
-    padding: 2px 10px;
-    border-radius: 4px;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 4px 12px;
+    border-radius: 6px;
     font-size: 0.8rem;
     color: var(--primary);
     font-weight: 600;
 }
 
-/* ─── ติดต่อ (Contact) ──────────────────────────────────────────── */
-.contact__layout {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    /* ฝั่งข้อมูลติดต่อ 1 ส่วน ฝั่งฟอร์มพิมพ์ 2 ส่วน */
-    gap: 48px;
-    align-items: start;
-}
-
-.contact__info p {
-    margin-bottom: 16px;
-    font-size: 1rem;
-}
-
-.contact__info a {
-    color: var(--primary);
-    transition: var(--transition);
-}
-
-.contact__info a:hover {
-    text-decoration: underline;
-    /* เพิ่มเส้นใต้ตอนเอาเมาส์มาวางบนลิงก์ติดต่อ */
-}
-
-.contact__form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-/* สไตล์ช่องกรอกข้อมูลและกล่องพิมพ์ข้อความยาว */
-.form-input {
-    padding: 12px 16px;
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    font-family: inherit;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-    outline: none;
-}
-
-.form-input:focus {
-    border-color: var(--primary);
-    /* ตอนที่ผู้ใช้เอามือไปคลิกฟอร์ม ให้เปลี่ยนสีกรอบเป็นสีฟ้า */
-}
-
-/* ─── แถบล่างสุดของเว็บ (Footer) ────────────────────────────────────────────── */
-.footer {
-    text-align: center;
-    padding: 24px;
-    background-color: var(--dark);
-    color: #64748B;
-    font-size: 0.9rem;
-}
-
-/* ─── ตกแต่งรูปภาพหน้าปกโปรเจกต์ (นำภาพจริงมาใส่แทนสีเฉดเดิม) ─── */
-
-.project-card__img--1 {
-    background-image: url('images/project-profile-card.png');
-    /* ภาพแคปหน้าจอการ์ดโปรไฟล์ของคุณ */
-}
-
-.project-card__img--2 {
-    background-image: url('images/project-portfolio.png');
-    /* ภาพหน้าจอเว็บพอร์ตโฟลิโอนี้ */
-}
-
-.project-card__img--3 {
-    background-image: url('images/project-ecommerce.jpg');
-    /* ภาพหน้าจอระบบร้านค้าออนไลน์ */
-}
-
-.project-card__img {
-    height: 160px;
-    background-size: cover;
-    /* บังคับให้ภาพขยายเต็มกล่องพอดี โดยไม่เสียสัดส่วน (ภาพไม่เบี้ยว) */
-    background-position: center;
-    /* จัดให้จุดกึ่งกลางของภาพอยู่ตรงกลางกล่องเสมอ */
-}
-
-/* ─── สไตล์เพิ่มเติมสำหรับส่วนกิจกรรม (Activities & Certificates) ─────────────────── */
-
-/* จัดบล็อกการ์ดกิจกรรมแยกเป็น 2 ฝั่งซ้ายขวาอย่างสมดุล */
+/* ─── กิจกรรม (Activities) ───────────────────────────────────── */
 .activity__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -618,28 +434,22 @@ img {
 }
 
 .activity-card {
-    background-color: var(--white);
+    background-color: var(--dark-card);
     padding: 32px;
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
     border: 1px solid var(--border);
-    position: relative;
-    /* จำเป็นสำหรับป้ายปี พ.ศ. ให้ยึดขอบการ์ดได้ถูกต้อง */
     transition: var(--transition);
 }
 
 .activity-card:hover {
     transform: translateY(-5px);
     border-color: var(--primary);
-    /* เวลาเอาเมาส์ชี้ ให้เส้นขอบสว่างเป็นสีฟ้า */
 }
 
-/* ป้ายกำกับเล็กๆ ด้านบน เพื่อบอกปี พ.ศ. หรือประเภทผลงาน */
 .activity-card__badge {
     display: inline-block;
     font-size: 0.8rem;
-    background-color: rgba(6, 182, 212, 0.1);
-    /* สีฟ้าจางๆ */
+    background-color: rgba(16, 185, 129, 0.15);
     color: var(--primary);
     padding: 4px 12px;
     border-radius: 6px;
@@ -648,29 +458,119 @@ img {
 }
 
 .activity-card h3 {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     margin-bottom: 12px;
-    color: var(--dark);
+    color: var(--white);
 }
 
 .activity-card p {
     color: var(--muted);
     font-size: 0.95rem;
-    line-height: 1.6;
+}
+
+/* ─── ติดต่อ (Contact) ──────────────────────────────────────────── */
+.contact__layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 54px;
+    align-items: start;
+}
+
+.contact__info p {
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+}
+
+.contact__info a {
+    color: var(--primary);
+    transition: var(--transition);
+}
+
+.contact__info a:hover {
+    color: var(--primary-dark);
+}
+
+.social-media {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px dashed var(--border);
+}
+
+.social-media h3 {
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 18px;
+}
+
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--white) !important;
+    transition: var(--transition);
+}
+
+.social-link--linkedin { background-color: #0077B5; }
+.social-link--facebook { background-color: #1877F2; }
+.social-link--instagram { background: linear-gradient(45deg, #F9CE34, #EE2A7B, #6228D7); }
+
+.social-link:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-input {
+    padding: 14px 18px;
+    background-color: var(--dark-card);
+    border: 1px solid var(--border);
+    color: var(--white);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: var(--transition);
+    outline: none;
+}
+
+.form-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+}
+
+/* ─── แถบล่างสุดของเว็บ (Footer) ─────────────────────────────────── */
+.footer {
+    text-align: center;
+    padding: 32px;
+    background-color: #060B1A;
+    color: #475569;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border);
 }
 
 /* ─── ระบบรองรับหน้าจออุปกรณ์เคลื่อนที่ (Mobile Responsive) ─────────────────────── */
-/* ทำงานตอนหน้าจอแคบลงกว่า 768px (พวกสมาร์ตโฟน) */
 @media (max-width: 768px) {
-    /* ปรับเมนูด้านบนสุดให้เรียงซ้อนกันแนวดิ่ง */
     .navbar {
         flex-direction: column;
-        gap: 12px;
-        padding: 12px 16px;
+        gap: 16px;
+        padding: 16px;
     }
 
     .nav-links {
-        gap: 16px;
+        gap: 20px;
         flex-wrap: wrap;
         justify-content: center;
     }
@@ -678,28 +578,26 @@ img {
     .about__grid {
         flex-direction: column;
         text-align: center;
-        gap: 32px; /* ลดระยะห่างลงมาหน่อยให้พอดีกับจอมือถือ */
+        gap: 36px;
     }
 
     .hero__actions {
         flex-direction: column;
         width: 100%;
-        max-width: 300px; /* จำกัดความกว้างปุ่มไม่ให้แผ่เต็มจอเกินไป */
+        max-width: 280px;
         margin: 0 auto;
     }
     
     .hero__actions .btn {
-        width: 100%; /* บังคับให้ปุ่มกว้างเท่ากันทั้งปุ่มหลักและปุ่มรอง */
+        width: 100%;
     }
 
-    /* ยุบฟอร์มติดต่อจาก 2 คอลัมน์ให้เหลือแถวเดี่ยวแนวตั้ง */
     .contact__layout {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 40px;
     }
 
-    /* ลดระยะเยื้องบน-ล่างของแต่ละ Section ลงมา เพื่อไม่ให้ผู้ใช้ต้องสไลด์หน้าจอยาวเกินไป */
     .section {
-        padding: 48px 0;
+        padding: 56px 0;
     }
 }
