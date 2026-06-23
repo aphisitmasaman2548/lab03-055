@@ -1,0 +1,462 @@
+/* ─── Reset ส่วนกลาง ─────────────────────────────────────────── */
+/* เคลียร์ขอบและระยะเยื้องที่เบราว์เซอร์ให้มาตอนแรกออกให้หมด เพื่อให้จัดหน้าจอเองได้แม่นยำ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box; /* ให้ความกว้างกับความสูงรวม Padding และ Border ไปเลย ไม่บวมออกมา */
+    margin: 0;
+    padding: 0;
+}
+
+/* ─── ตัวแปรสารพัดสี (Design Tokens) ─────────────────── */
+/* เก็บค่าสีที่ใช้บ่อยๆ ไว้ในนี้ เวลาอยากเปลี่ยนธีมเว็บ จะได้แก้ที่เดียวจบ ไม่ต้องไล่แก้ทั้งไฟล์ */
+:root {
+    --primary: #06B6D4;          /* สีฟ้าหลักของเว็บ */
+    --primary-dark: #0891B2;     /* สีฟ้ารูปแบบเข้ม เอาไว้ใช้ตอนเมาส์ชี้ (Hover) */
+    --secondary: #8B5CF6;        /* สีม่วง เอาไว้สลับสีสกิลหลังบ้าน */
+    --dark: #0F172A;             /* สีเกือบดำ เอาไว้ใช้กับตัวหนังสือหลักและพื้นหลังเข้ม */
+    --muted: #64748B;            /* สีเทา สำหรับข้อความย่อยๆ */
+    --border: #E2E8F0;           /* สีเส้นขอบเทาอ่อน */
+    --bg: #F8FAFC;               /* สีพื้นหลังเว็บหลัก */
+    --bg-alt: #EFF6FF;           /* สีพื้นหลังแบบสลับ (ฟ้าอ่อนมาก) */
+    --white: #FFFFFF;            /* สีขาว */
+    --radius: 12px;              /* ความโค้งของมุมกล่อง/ปุ่มต่างๆ บนเว็บ */
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.10); /* เงาจางๆ ช่วยให้กล่องดูมีมิติ */
+    --transition: all 0.3s ease; /* ตั้งค่าแอนิเมชันตอนขยับหรือเปลี่ยนสี ให้มันสมูทภายในเวลา 0.3 วินาที */
+}
+
+/* ─── สไตล์พื้นฐานของทั้งหน้าเว็บ ─────────────────────────────────── */
+html {
+    scroll-behavior: smooth; /* สั่งให้ตอนกดเมนูด้านบน หน้าเว็บมันค่อยๆ เลื่อนสไลด์ลงมาแบบนุ่มนวล */
+}
+
+body {
+    font-family: 'Inter', 'Sarabun', sans-serif; /* เรียกใช้ฟอนต์ Inter ก่อน ถ้าไม่มีหรือเป็นไทยให้ใช้ Sarabun */
+    background-color: var(--bg);
+    color: var(--dark);
+    line-height: 1.7; /* ระยะห่างระหว่างบรรทัด ไม่ให้ตัวหนังสือติดกันเกินไป อ่านง่ายขึ้น */
+}
+
+a {
+    text-decoration: none; /* ลบเส้นใต้ลิงก์มาตรฐานออก */
+    color: inherit;        /* ให้ใช้สีตามตัวหนังสือของกล่องที่มันอยู่ */
+}
+
+img {
+    max-width: 100%; /* บังคับให้รูปภาพไม่มีทางกว้างเกินขนาดกล่องที่ใส่มันไว้ */
+    display: block;
+}
+
+/* ─── จัดระเบียบหน้าจอทั่วไป (Layout) ────────────────────────────── */
+/* กล่องควบคุมความกว้างตรงกลางหน้าจอ ไม่ให้เนื้อหาขยายแผ่ออกไปกว้างเกินไปในจอคอมใหญ่ๆ */
+.container {
+    max-width: 1140px;
+    margin: 0 auto;    /* จัดให้อยู่กึ่งกลางหน้าจอเสมอ */
+    padding: 0 24px;   /* ดันระยะเยื้องซ้ายขวาเผื่อตอนดูในมือถือ ข้อมูลจะได้ไม่ติดขอบจอ */
+}
+
+/* ตั้งค่ามาตรฐานให้ทุก Section เว้นระยะห่างด้านบนและล่างให้เท่าๆ กันอย่างเป็นระเบียบ */
+.section {
+    padding: 80px 0;
+}
+
+/* สีพื้นหลังแบบสลับ เอาไว้ใช้กับบาง Section เพื่อไม่ให้เว็บดูน่าเบื่อเกินไป */
+.section--alt {
+    background-color: var(--bg-alt);
+}
+
+/* สไตล์หัวข้อหลักของแต่ละ Section */
+.section__title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 48px; /* เว้นระยะห่างด้านล่างก่อนเริ่มโชว์เนื้อหา */
+    position: relative;
+}
+
+/* ─── สไตล์ปุ่มกดต่างๆ (Buttons) ───────────────────────────── */
+/* โครงสร้างพื้นฐานของปุ่มทั้งหมดบนเว็บ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    font-weight: 600;
+    border-radius: var(--radius);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+/* ปุ่มสีฟ้าแบบทึบเด่น */
+.btn--primary {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.btn--primary:hover {
+    background-color: var(--primary-dark); /* ตอนเอาเมาส์ชี้ ให้ปุ่มเข้มขึ้นหน่อย */
+}
+
+/* ปุ่มแบบโปร่งแสง มีแค่เส้นขอบ */
+.btn--outline {
+    border: 2px solid var(--white);
+    color: var(--white);
+    background-color: transparent;
+}
+
+.btn--outline:hover {
+    background-color: var(--white);
+    color: var(--dark); /* ตอนเมาส์ชี้ ให้ปุ่มกลายเป็นสีขาวทึบแล้วตัวหนังสือสีเข้ม */
+}
+
+/* ─── เมนูด้านบนสุด (Navbar) ────────────────────────────────── */
+.navbar {
+    position: fixed; /* ตรึงเมนูไว้ด้านบนสุดตลอดเวลา ต่อให้เลื่อนหน้าจอลงมา เมนูก็ไม่หาย */
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* แยกโลโก้ไว้ซ้ายสุด และเมนูลิงก์ไว้ขวาสุด */
+    align-items: center;
+    padding: 20px 48px;
+    background-color: rgba(15, 23, 42, 0.9); /* สีดำโปร่งแสงนิดๆ พอให้เห็นเนื้อหาข้างหลังตอนเลื่อนผ่าน */
+    backdrop-filter: blur(8px); /* ทำเอฟเฟกต์เบลอหลังแถบเมนู เพิ่มความหรูหรา */
+    z-index: 1000; /* ดันให้ชั้นเลเยอร์อยู่สูงที่สุด เพื่อไม่ให้โดนวัตถุอื่นบัง */
+}
+
+.nav-brand {
+    color: var(--white);
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.nav-links {
+    display: flex;
+    gap: 32px; /* เว้นระยะห่างระหว่างแต่ละเมนู */
+    list-style: none;
+}
+
+.nav-links a {
+    color: #94A3B8; /* สีเมนูตอนปกติจะออกเทาๆ */
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--white); /* พอเมาส์ชี้ปุ๊บ สว่างเป็นสีขาวทันที */
+}
+
+/* ─── หน้าแรก (Hero) ───────────────────────────────────────── */
+.hero {
+    height: 100vh; /* บังคับให้ความสูงเต็มจอพอดีกับหน้าจอของผู้ใช้งาน */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark);
+    /* ตัวอย่างการใส่รูปพื้นหลังคอมเมนต์ไว้ หากมีรูปก็นำมาใส่ได้ */
+    /* background-image: url('hero-bg.jpg'); */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    text-align: center;
+}
+
+.hero__overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.8) 100%); /* ไล่เฉดสีดำน้ำเงินทับรูปพื้นหลัง */
+}
+
+.hero__content {
+    position: relative;
+    z-index: 1; /* ดันตัวหนังสือให้ลอยขึ้นมาเหนือกองสี Overlay */
+    color: var(--white);
+    max-width: 800px;
+    padding: 0 24px;
+}
+
+.hero__greeting {
+    font-size: 1.25rem;
+    color: var(--primary); /* ข้อความทักทายสีฟ้าเด่นๆ */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+}
+
+.hero__name {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    letter-spacing: -1px;
+}
+
+.hero__role {
+    font-size: 1.5rem;
+    color: #94A3B8;
+    margin-bottom: 40px;
+}
+
+.hero__actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+/* ─── แนะนำตัว (About) ───────────────────────────────────────── */
+.about__grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* แบ่งพื้นที่เป็น 2 ฝั่ง ฝั่งข้อความกว้างกว่าฝั่งรูปสองเท่า */
+    gap: 64px;
+    align-items: center;
+}
+
+/* กล่องจำลองสำหรับทำเป็นรูปวงกลม (กรณีไม่มีไฟล์รูปจริง) */
+.avatar-placeholder {
+    width: 280px;
+    height: 280px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); /* ไล่สีฟ้าไปม่วงสวยๆ */
+    border-radius: 50%; /* สั่งตัดขอบให้เป็นวงกลมมนเป๊ะ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 3rem;
+    font-weight: 800;
+    box-shadow: var(--shadow);
+    margin: 0 auto;
+}
+
+.about__text h3 {
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+}
+
+.about__text p {
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+}
+
+/* ─── วิชาที่เรียน (Courses) ─────────────────────────────────────── */
+.course__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* สั่งแบ่งแถวการ์ดอัตโนมัติ ยืดหดตามความกว้างจอโดยไม่ต้องพึ่งพา Media Query */
+    gap: 24px;
+}
+
+.course-card {
+    background-color: var(--white);
+    padding: 32px 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+/* แอนิเมชันเวลาร่อนเมาส์ผ่านการ์ดวิชา ให้ลอยตัวขึ้นมาและเส้นขอบเปลี่ยนเป็นสีฟ้า */
+.course-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.coursecard__code {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);
+    background-color: rgba(6, 182, 212, 0.1); /* ไฮไลต์สีรหัสวิชาแบบจางๆ */
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.course-card__name {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* ─── ทักษะ (Skills) ────────────────────────────────────────── */
+.skills__group {
+    background-color: var(--white);
+    padding: 32px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 32px; /* เว้นระยะห่างระหว่างบล็อก Frontend กับ Backend */
+}
+
+.skills__group h3 {
+    margin-bottom: 20px;
+    font-size: 1.25rem;
+    color: var(--dark);
+    border-left: 4px solid var(--primary); /* ทำเส้นขีดแนวตั้งสีฟ้าหนาๆ ไว้หน้าหัวข้อกลุ่มทักษะ */
+    padding-left: 12px;
+}
+
+.skills__badges {
+    display: flex;
+    flex-wrap: wrap; /* ถ้าสกิลเยอะเกินขนาดหน้าจอ ให้ป้ายร่วงลงมาขึ้นบรรทัดใหม่เองอัตโนมัติ */
+    gap: 12px;
+}
+
+/* สไตล์ป้ายข้อความรูปสกิล */
+.badge {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* สีป้ายกลุ่ม Frontend (โทนสีฟ้า) */
+.badge--blue {
+    background-color: rgba(6, 182, 212, 0.1);
+    color: var(--primary);
+}
+
+/* สีป้ายกลุ่ม Backend (โทนสีม่วง) */
+.badge--purple {
+    background-color: rgba(139, 92, 246, 0.1);
+    color: var(--secondary);
+}
+
+/* ─── ผลงาน (Projects) ───────────────────────────────────────── */
+.projects__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* แบ่งช่องเก็บการ์ดผลงาน */
+    gap: 32px;
+}
+
+.project-card {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden; /* สั่งให้ขอบที่ทะลักความโค้งของการ์ดถูกตัดซ่อนทิ้งไป (เช่น มุมรูปด้านบน) */
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+.project-card:hover {
+    transform: translateY(-8px); /* ให้การ์ดลอยขึ้นตอนเมาส์ชี้ */
+}
+
+/* บล็อกแสดงรูปภาพของผลงาน (สุ่มสีไล่เฉดสีชั่วคราวเผื่อไม่มีภาพจริง) */
+.project-card__img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.project-card__img--1 { background: linear-gradient(45deg, #FF6B6B, #FF8E53); }
+.project-card__img--2 { background: linear-gradient(45deg, #4E65FF, #92EFFD); }
+.project-card__img--3 { background: linear-gradient(45deg, #11998e, #38ef7d); }
+
+.project-card__body {
+    padding: 24px;
+}
+
+.project-card__body h3 {
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+}
+
+.project-card__body p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    height: 44px; /* บังคับความสูงคำอธิบายผลงาน เพื่อให้บรรทัดล่างสุดเท่ากันเสมอกันทุกการ์ด */
+}
+
+.projectcard__tags {
+    display: flex;
+    gap: 8px;
+}
+
+.projectcard__tags span {
+    background-color: #F1F5F9;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* ─── ติดต่อ (Contact) ──────────────────────────────────────────── */
+.contact__layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* ฝั่งข้อมูลติดต่อ 1 ส่วน ฝั่งฟอร์มพิมพ์ 2 ส่วน */
+    gap: 48px;
+    align-items: start;
+}
+
+.contact__info p {
+    margin-bottom: 16px;
+    font-size: 1rem;
+}
+
+.contact__info a {
+    color: var(--primary);
+    transition: var(--transition);
+}
+
+.contact__info a:hover {
+    text-decoration: underline; /* เพิ่มเส้นใต้ตอนเอาเมาส์มาวางบนลิงก์ติดต่อ */
+}
+
+.contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* เว้นระยะห่างระหว่างช่องกรอกแต่ละช่อง */
+}
+
+/* สไตล์ช่องกรอกข้อมูล (Input) และกล่องพิมพ์ข้อความยาว (Textarea) */
+.form-input {
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    font-family: inherit; /* บังคับให้ใช้ฟอนต์สระบุรีตาม Body ไม่ใช้ฟอนต์ระบบเริ่มต้นของวินโดวส์ */
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    outline: none;
+}
+
+/* ตอนที่ผู้ใช้เอาเมาส์ไปคลิกเลือกช่องกรอก ให้เปลี่ยนสีกรอบเป็นสีฟ้า */
+.form-input:focus {
+    border-color: var(--primary);
+}
+
+/* ─── แถบล่างสุดของเว็บ (Footer) ────────────────────────────────────────────── */
+.footer {
+    text-align: center;
+    padding: 24px;
+    background-color: var(--dark);
+    color: #64748B;
+    font-size: 0.9rem;
+}
+
+/* ─── ระบบรองรับหน้าจออุปกรณ์เคลื่อนที่ (Mobile Responsive) ─────────────────────── */
+/* ทำงานตอนหน้าจอแคบลงกว่า 768px (พวกแท็บเล็ตแนวตั้งและสมาร์ตโฟน) */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 16px 24px;
+    }
+    
+    .nav-links {
+        display: none; /* ซ่อนเมนูลิงก์แบบยาวไปก่อนเพื่อหลีกเลี่ยงจอเบียดกัน (บนมือถือควรปรับเป็นเมนูแฮมเบอร์เกอร์ในอนาคต) */
+    }
+    
+    .hero__name {
+        font-size: 2.5rem; /* ลดขนาดชื่อเจ้าของเว็บลงมาเพื่อให้ไม่ล้นขอบจอโทรศัพท์ */
+    }
+    
+    /* สั่งให้ Layout ที่จัดรูปแบบตาราง (Grid) ยุบลงมากลายเป็น 1 คอลัมน์ต่อ 1 แถวเรียงยาวลงมา */
+    .about__grid, 
+    .contact__layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .avatar-placeholder {
+        width: 200px;
+        height: 200px; /* ลดขนาดรูปหน้าตัวเองลงมาหน่อยเวลาแสดงบนมือถือ */
+    }
+}
