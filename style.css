@@ -583,12 +583,88 @@ img {
     font-size: 0.9rem;
 }
 
+/* ─── ตกแต่งรูปภาพหน้าปกโปรเจกต์ (นำภาพจริงมาใส่แทนสีเฉดเดิม) ─── */
+
+.project-card__img--1 {
+    background-image: url('images/project-profile-card.png');
+    /* ภาพแคปหน้าจอการ์ดโปรไฟล์ของคุณ */
+}
+
+.project-card__img--2 {
+    background-image: url('images/project-portfolio.png');
+    /* ภาพหน้าจอเว็บพอร์ตโฟลิโอนี้ */
+}
+
+.project-card__img--3 {
+    background-image: url('images/project-ecommerce.jpg');
+    /* ภาพหน้าจอระบบร้านค้าออนไลน์ */
+}
+
+.project-card__img {
+    height: 160px;
+    background-size: cover;
+    /* บังคับให้ภาพขยายเต็มกล่องพอดี โดยไม่เสียสัดส่วน (ภาพไม่เบี้ยว) */
+    background-position: center;
+    /* จัดให้จุดกึ่งกลางของภาพอยู่ตรงกลางกล่องเสมอ */
+}
+
+/* ─── สไตล์เพิ่มเติมสำหรับส่วนกิจกรรม (Activities & Certificates) ─────────────────── */
+
+/* จัดบล็อกการ์ดกิจกรรมแยกเป็น 2 ฝั่งซ้ายขวาอย่างสมดุล */
+.activity__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+}
+
+.activity-card {
+    background-color: var(--white);
+    padding: 32px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    position: relative;
+    /* จำเป็นสำหรับป้ายปี พ.ศ. ให้ยึดขอบการ์ดได้ถูกต้อง */
+    transition: var(--transition);
+}
+
+.activity-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    /* เวลาเอาเมาส์ชี้ ให้เส้นขอบสว่างเป็นสีฟ้า */
+}
+
+/* ป้ายกำกับเล็กๆ ด้านบน เพื่อบอกปี พ.ศ. หรือประเภทผลงาน */
+.activity-card__badge {
+    display: inline-block;
+    font-size: 0.8rem;
+    background-color: rgba(6, 182, 212, 0.1);
+    /* สีฟ้าจางๆ */
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.activity-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    color: var(--dark);
+}
+
+.activity-card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
 /* ─── ระบบรองรับหน้าจออุปกรณ์เคลื่อนที่ (Mobile Responsive) ─────────────────────── */
 /* ทำงานตอนหน้าจอแคบลงกว่า 768px (พวกสมาร์ตโฟน) */
 @media (max-width: 768px) {
+    /* ปรับเมนูด้านบนสุดให้เรียงซ้อนกันแนวดิ่ง */
     .navbar {
         flex-direction: column;
-        /* ปรับทิศทางเมนูให้เรียงซ้อนกันแนวดิ่ง */
         gap: 12px;
         padding: 12px 16px;
     }
@@ -601,17 +677,29 @@ img {
 
     .about__grid {
         flex-direction: column;
-        /* สั่งรูปและเนื้อหายุบตัวมาต่อแถวแนวตั้ง */
         text-align: center;
+        gap: 32px; /* ลดระยะห่างลงมาหน่อยให้พอดีกับจอมือถือ */
     }
 
+    .hero__actions {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px; /* จำกัดความกว้างปุ่มไม่ให้แผ่เต็มจอเกินไป */
+        margin: 0 auto;
+    }
+    
+    .hero__actions .btn {
+        width: 100%; /* บังคับให้ปุ่มกว้างเท่ากันทั้งปุ่มหลักและปุ่มรอง */
+    }
+
+    /* ยุบฟอร์มติดต่อจาก 2 คอลัมน์ให้เหลือแถวเดี่ยวแนวตั้ง */
     .contact__layout {
         grid-template-columns: 1fr;
-        /* ยุบฟอร์มติดต่อมาเป็นแถวเดี่ยว */
+        gap: 32px;
     }
 
+    /* ลดระยะเยื้องบน-ล่างของแต่ละ Section ลงมา เพื่อไม่ให้ผู้ใช้ต้องสไลด์หน้าจอยาวเกินไป */
     .section {
         padding: 48px 0;
-        /* ลดระยะเยื้องหลบขอบข้างบนล่างเล็กน้อยบนมือถือ */
     }
 }
